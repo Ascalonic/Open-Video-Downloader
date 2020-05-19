@@ -46,14 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -75,6 +78,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DownloadManager\DownloadManager.csproj">
+      <Project>{247719cb-f965-4713-84e6-6126c5a16584}</Project>
+      <Name>DownloadManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Url Extractor\UrlExtractor.csproj">
+      <Project>{51f17c39-2443-47f4-a783-dd4c36b4f4cb}</Project>
+      <Name>UrlExtractor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Youtube.UrlExtractor\Youtube.UrlExtractor.csproj">
+      <Project>{4e6774ce-3cd1-41ee-b684-dfdab3731caa}</Project>
+      <Name>Youtube.UrlExtractor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
