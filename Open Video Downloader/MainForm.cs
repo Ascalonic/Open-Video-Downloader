@@ -1,6 +1,7 @@
 ﻿using DownloadManager.Models;
 using DownloadManager.ServiceContracts;
 using DownloadManager.Servies;
+using Open_Video_Downloader.UserControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +18,7 @@ namespace Open_Video_Downloader
 {
     public partial class MainForm : Form
     {
-        private Dictionary<int, int> ChunkProgress = new Dictionary<int, int>();
+        DownloadsView downloadsViewer;
 
         public MainForm()
         {
@@ -26,29 +27,15 @@ namespace Open_Video_Downloader
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            IUrlExtractor youtubeUrlExtractor = new YoutubeExtractor();
-            youtubeUrlExtractor.GetDownloadUrlsAsync("https://www.youtube.com/watch?v=8kmzUpQDBTU");
-        }
+            //IUrlExtractor youtubeUrlExtractor = new YoutubeExtractor();
+            //youtubeUrlExtractor.GetDownloadUrlsAsync("https://www.youtube.com/watch?v=8kmzUpQDBTU");
+            //flowLayoutPanel1.VerticalScroll.Enabled = true;
 
-        private async Task DownloadFile(string url)
-        {
-            IAsyncFileDownloader fileDownloader = new AsyncFileDownloader();
-            fileDownloader.Progress = new Progress<DownloadProgress>((progress) =>
-            {
-                if (ChunkProgress.ContainsKey(progress.ChunkIndex))
-                {
-                    ChunkProgress[progress.ChunkIndex] = progress.Percentage;
-                }
-                else
-                {
-                    ChunkProgress.Add(progress.ChunkIndex, progress.Percentage);
-                }
+            downloadsViewer = new DownloadsView();
+            downloadsViewer.Dock = DockStyle.Fill;
+            pnlMainContainer.Controls.Add(downloadsViewer);
 
-                int combinedProgress = (int)ChunkProgress.Average(x => x.Value);
-                if (combinedProgress > progressBar1.Value)
-                    progressBar1.Value = combinedProgress;
-            });
-            await fileDownloader.DownloadFileAsync(url);
+            downloadsViewer.AddNewDownload("https://www.youtube.com/watch?v=8kmzUpQDBTU");
         }
     }
 }

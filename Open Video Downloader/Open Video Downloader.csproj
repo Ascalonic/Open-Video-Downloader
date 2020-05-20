@@ -54,6 +54,24 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\DownloadItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\DownloadItem.Designer.cs">
+      <DependentUpon>DownloadItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DownloadsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\DownloadsView.Designer.cs">
+      <DependentUpon>DownloadsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VideoQualitySelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VideoQualitySelector.Designer.cs">
+      <DependentUpon>VideoQualitySelector.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -65,7 +83,17 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserControls\DownloadItem.resx">
+      <DependentUpon>DownloadItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\DownloadsView.resx">
+      <DependentUpon>DownloadsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VideoQualitySelector.resx">
+      <DependentUpon>VideoQualitySelector.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -92,6 +120,18 @@
       <Project>{4e6774ce-3cd1-41ee-b684-dfdab3731caa}</Project>
       <Name>Youtube.UrlExtractor</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\interface.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui %282%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

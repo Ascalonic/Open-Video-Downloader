@@ -15,6 +15,7 @@ namespace Youtube.UrlExtractor
     {
         public async Task<IEnumerable<DownloadUrl>> GetDownloadUrlsAsync(string sourceUrl)
         {
+            List<DownloadUrl> urls = new List<DownloadUrl>();
             string source = await Utilities.GetWebpageSourceCodeAsync(sourceUrl);
             if(source.Contains("\\\"formats\\\":"))
             {
@@ -22,9 +23,14 @@ namespace Youtube.UrlExtractor
                 source = source.Remove(source.IndexOf("]}") + 2);
                 source = Regex.Unescape(source);
                 var model = Utilities.DeserializeJson<YoutubeParseModel>("{" + source);
+                urls = model.formats.Select(x => new DownloadUrl()
+                {
+                    Url = x.url,
+                    Quality = x.qualityLabel
+                }).ToList();
             }
 
-            return null;
+            return urls;
         }
     }
 }

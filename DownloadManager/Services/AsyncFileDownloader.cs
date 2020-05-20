@@ -16,6 +16,8 @@ namespace DownloadManager.Servies
         public int ParallelDownloads { get; set; }
         public bool ValidateSsl { get; set; }
         public IProgress<DownloadProgress> Progress { get; set; }
+        public string DownloadDirectory { get; set; }
+        public string FileName { get; set; }
 
         public AsyncFileDownloader()
         {
