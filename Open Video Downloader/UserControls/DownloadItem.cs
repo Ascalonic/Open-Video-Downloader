@@ -54,18 +54,19 @@ namespace Open_Video_Downloader.UserControls
             if(extractor != null)
             {
                 //Extract the video urls and their metadata
-                var urls = await extractor.GetDownloadUrlsAsync(SourceUrl);
+                var videoInfo = await extractor.GetDownloadUrlsAsync(SourceUrl);
                 pnlUrlResolution.Visible = false;
 
                 //Ask for the quality of the video to be downloaded
                 VideoQualitySelector qualitySelector = new VideoQualitySelector();
-                qualitySelector.QualityLabels = urls.Select(x => x.Quality).ToList();
+                qualitySelector.Text = videoInfo.Title;
+                qualitySelector.QualityLabels = videoInfo.DownloadUrls.Select(x => x.Quality).ToList();
                 qualitySelector.ShowDialog();
 
                 if(qualitySelector.DialogResult == DialogResult.OK)
                 {
                     //return the video url
-                    return urls.Where(x => x.Quality == qualitySelector.SelectedQuality).First().Url;
+                    return videoInfo.DownloadUrls.Where(x => x.Quality == qualitySelector.SelectedQuality).First().Url;
                 }
             }
 

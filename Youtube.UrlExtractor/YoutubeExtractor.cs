@@ -13,16 +13,37 @@ namespace Youtube.UrlExtractor
 {
     public class YoutubeExtractor : IUrlExtractor
     {
-        public async Task<IEnumerable<DownloadUrl>> GetDownloadUrlsAsync(string sourceUrl)
+        private const string titleSeeker = "<title>";
+
+        public async Task<VideoInfo> GetDownloadUrlsAsync(string sourceUrl)
         {
+            VideoInfo extractedInfo = new VideoInfo();
             List<DownloadUrl> urls = new List<DownloadUrl>();
             string source = await Utilities.GetWebpageSourceCodeAsync(sourceUrl);
+
+            if(source.Contains(titleSeeker))
+            {
+                string titleTag = source.Substring(source.IndexOf(titleSeeker) + titleSeeker.Length);
+                titleTag = titleTag.Remove(titleTag.IndexOf("</title>"));
+                extractedInfo.Title = titleTag;
+            }
+
             if(source.Contains("\\\"formats\\\":"))
             {
                 source = source.Substring(source.IndexOf("\\\"formats\\\":"));
                 source = source.Remove(source.IndexOf("]}") + 2);
                 source = Regex.Unescape(source);
-                var model = Utilities.DeserializeJson<YoutubeParseModel>("{" + source);
+                YoutubeParseModel model = new YoutubeParseModel();
+                try
+                {
+                    model = Utilities.DeserializeJson<YoutubeParseModel>("{" + source);
+                }
+                catch(Exception ex)
+                {
+                    source = source.Remove(source.IndexOf("}],\"probeUrl\"") + 2);
+                    source = "{" + source + "}";
+                    model = Utilities.DeserializeJson<YoutubeParseModel>(source);
+                }
                 urls = model.formats.Select(x => new DownloadUrl()
                 {
                     Url = x.url,
@@ -30,7 +51,8 @@ namespace Youtube.UrlExtractor
                 }).ToList();
             }
 
-            return urls;
+            extractedInfo.DownloadUrls = urls;
+            return extractedInfo;
         }
     }
 }

@@ -9,6 +9,6 @@ namespace UrlExtractor.ServiceContracts
 {
     public interface IUrlExtractor
     {
-        Task<IEnumerable<DownloadUrl>> GetDownloadUrlsAsync(string sourceUrl);
+        Task<VideoInfo> GetDownloadUrlsAsync(string sourceUrl);
     }
 }
