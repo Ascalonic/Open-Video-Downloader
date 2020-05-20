@@ -110,6 +110,7 @@
             this.btnNew.TabIndex = 5;
             this.btnNew.Text = "         New Download";
             this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // MainForm
             // 

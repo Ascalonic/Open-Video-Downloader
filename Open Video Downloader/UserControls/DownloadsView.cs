@@ -17,12 +17,17 @@ namespace Open_Video_Downloader.UserControls
             InitializeComponent();
         }
 
-        public void AddNewDownload(string url)
+        public async Task AddNewDownload(string url)
         {
             DownloadItem downloader = new DownloadItem();
             downloader.SourceUrl = url;
             downloader.Width = flowDownloadListContainer.Width - 10;
             flowDownloadListContainer.Controls.Add(downloader);
+            bool result = await downloader.StartDownload();
+            if(!result)
+            {
+                flowDownloadListContainer.Controls.Remove(downloader);
+            }
         }
     }
 }

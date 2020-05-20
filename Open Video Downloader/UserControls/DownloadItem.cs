@@ -17,7 +17,9 @@ namespace Open_Video_Downloader.UserControls
 {
     public partial class DownloadItem : UserControl
     {
+        //Each thread downloads a segment of the file. This dictionary stores the progress of each chunk
         private Dictionary<int, int> ChunkProgress = new Dictionary<int, int>();
+
         public string SourceUrl { get; set; }
 
         public DownloadItem()
@@ -25,21 +27,45 @@ namespace Open_Video_Downloader.UserControls
             InitializeComponent();
         }
 
+        public async Task<bool> StartDownload()
+        {
+            pnlUrlResolution.Visible = true;
+            pnlDownloadStatus.Visible = false;
+
+            string downloadUrl = await ResolveDownloadUrl();
+            if(downloadUrl != null)
+            {
+                pnlUrlResolution.Visible = false; ;
+                pnlDownloadStatus.Visible = true;
+
+                await DownloadFile(downloadUrl, prgxDownloadProgress); //start download of the file
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private async Task<string> ResolveDownloadUrl()
         {
-            //resolve url extractor
+            //resolve url extractor based on the URL hostname
             var extractor = ResolveExtractor();
             if(extractor != null)
             {
+                //Extract the video urls and their metadata
                 var urls = await extractor.GetDownloadUrlsAsync(SourceUrl);
+                pnlUrlResolution.Visible = false;
+
+                //Ask for the quality of the video to be downloaded
                 VideoQualitySelector qualitySelector = new VideoQualitySelector();
                 qualitySelector.QualityLabels = urls.Select(x => x.Quality).ToList();
                 qualitySelector.ShowDialog();
 
                 if(qualitySelector.DialogResult == DialogResult.OK)
                 {
-                    string downloadUrl = urls.Where(x => x.Quality == qualitySelector.SelectedQuality).First().Url;
-                    await DownloadFile(downloadUrl, prgxDownloadProgress);
+                    //return the video url
+                    return urls.Where(x => x.Quality == qualitySelector.SelectedQuality).First().Url;
                 }
             }
 
@@ -98,10 +124,10 @@ namespace Open_Video_Downloader.UserControls
             BorderStyle = BorderStyle.None;
         }
 
-        private async void DownloadItem_Load(object sender, EventArgs e)
+        private void DownloadItem_Load(object sender, EventArgs e)
         {
             lblSourceUrl.Text = SourceUrl;
-            await ResolveDownloadUrl();
+            pnlUrlResolution.Visible = false;
         }
 
         private void lblSourceUrl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

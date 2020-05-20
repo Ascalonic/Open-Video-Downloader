@@ -73,6 +73,16 @@ namespace Open_Video_Downloader.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap loading_png_gif {
+            get {
+                object obj = ResourceManager.GetObject("loading-png-gif", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ui {
             get {
                 object obj = ResourceManager.GetObject("ui", resourceCulture);

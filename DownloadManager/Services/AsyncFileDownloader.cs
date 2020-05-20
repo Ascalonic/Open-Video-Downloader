@@ -56,8 +56,6 @@ namespace DownloadManager.Servies
             }
             #endregion
 
-            Console.WriteLine("Size : " + result.Size);
-
             if (File.Exists(destinationFilePath))
             {
                 File.Delete(destinationFilePath);

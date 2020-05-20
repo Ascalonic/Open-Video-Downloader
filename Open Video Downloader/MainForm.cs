@@ -27,15 +27,20 @@ namespace Open_Video_Downloader
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //IUrlExtractor youtubeUrlExtractor = new YoutubeExtractor();
-            //youtubeUrlExtractor.GetDownloadUrlsAsync("https://www.youtube.com/watch?v=8kmzUpQDBTU");
-            //flowLayoutPanel1.VerticalScroll.Enabled = true;
-
             downloadsViewer = new DownloadsView();
             downloadsViewer.Dock = DockStyle.Fill;
             pnlMainContainer.Controls.Add(downloadsViewer);
+        }
 
-            downloadsViewer.AddNewDownload("https://www.youtube.com/watch?v=8kmzUpQDBTU");
+        private async void btnNew_Click(object sender, EventArgs e)
+        {
+            NewDownload newDownload = new NewDownload();
+            newDownload.ShowDialog();
+
+            if(newDownload.DialogResult == DialogResult.OK)
+            {
+                await downloadsViewer.AddNewDownload(newDownload.VideoUrl);
+            }
         }
     }
 }
