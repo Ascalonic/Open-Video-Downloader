@@ -117,6 +117,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dailymotion.UrlExtractor\Dailymotion.UrlExtractor.csproj">
+      <Project>{fff847f8-e688-483f-9d11-074224e34db7}</Project>
+      <Name>Dailymotion.UrlExtractor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DownloadManager\DownloadManager.csproj">
       <Project>{247719cb-f965-4713-84e6-6126c5a16584}</Project>
       <Name>DownloadManager</Name>

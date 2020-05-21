@@ -12,6 +12,7 @@ using DownloadManager.Servies;
 using DownloadManager.Models;
 using UrlExtractor.ServiceContracts;
 using Youtube.UrlExtractor;
+using Dailymotion.UrlExtractor;
 
 namespace Open_Video_Downloader.UserControls
 {
@@ -81,6 +82,10 @@ namespace Open_Video_Downloader.UserControls
             if (host.Contains("youtube.com"))
             {
                 return new YoutubeExtractor();
+            }
+            else if(host.Contains("dailymotion.com"))
+            {
+                return new DailymotionExtractor();
             }
             else
                 return null;

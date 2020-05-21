@@ -78,7 +78,6 @@ namespace DownloadManager.Servies
                     readRanges.Add(range);
                 }
 
-
                 readRanges.Add(new Range()
                 {
                     Start = readRanges.Any() ? readRanges.Last().End + 1 : 0,
