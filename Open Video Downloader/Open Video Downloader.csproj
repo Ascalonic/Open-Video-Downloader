@@ -52,6 +52,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\DownloaderInput.cs" />
     <Compile Include="NewDownload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +129,10 @@
     <ProjectReference Include="..\Url Extractor\UrlExtractor.csproj">
       <Project>{51f17c39-2443-47f4-a783-dd4c36b4f4cb}</Project>
       <Name>UrlExtractor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vimeo.UrlExtractor\Vimeo.UrlExtractor.csproj">
+      <Project>{03D84971-70C0-41D5-AF31-A333DE4D8A6A}</Project>
+      <Name>Vimeo.UrlExtractor</Name>
     </ProjectReference>
     <ProjectReference Include="..\Youtube.UrlExtractor\Youtube.UrlExtractor.csproj">
       <Project>{4e6774ce-3cd1-41ee-b684-dfdab3731caa}</Project>

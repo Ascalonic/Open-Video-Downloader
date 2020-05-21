@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dailymotion.UrlExtractor.Models
 {
-    public class DailymotionVideoQuality
+    internal class DailymotionVideoQuality
     {
         public string type { get; set; }
         public string url { get; set; }

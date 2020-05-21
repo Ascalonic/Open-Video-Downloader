@@ -13,6 +13,8 @@ using DownloadManager.Models;
 using UrlExtractor.ServiceContracts;
 using Youtube.UrlExtractor;
 using Dailymotion.UrlExtractor;
+using Vimeo.UrlExtractor;
+using Open_Video_Downloader.Models;
 
 namespace Open_Video_Downloader.UserControls
 {
@@ -33,13 +35,13 @@ namespace Open_Video_Downloader.UserControls
             pnlUrlResolution.Visible = true;
             pnlDownloadStatus.Visible = false;
 
-            string downloadUrl = await ResolveDownloadUrl();
-            if(downloadUrl != null)
+            var downloaderInput = await ResolveDownloadUrl();
+            if(downloaderInput != null)
             {
                 pnlUrlResolution.Visible = false; ;
                 pnlDownloadStatus.Visible = true;
 
-                await DownloadFile(downloadUrl, prgxDownloadProgress); //start download of the file
+                await DownloadFile(downloaderInput.Url, prgxDownloadProgress, downloaderInput.FileName); //start download of the file
                 return true;
             }
             else
@@ -48,11 +50,11 @@ namespace Open_Video_Downloader.UserControls
             }
         }
 
-        private async Task<string> ResolveDownloadUrl()
+        private async Task<DownloaderInput> ResolveDownloadUrl()
         {
             //resolve url extractor based on the URL hostname
             var extractor = ResolveExtractor();
-            if(extractor != null)
+            if (extractor != null)
             {
                 //Extract the video urls and their metadata
                 var videoInfo = await extractor.GetDownloadUrlsAsync(SourceUrl);
@@ -64,10 +66,14 @@ namespace Open_Video_Downloader.UserControls
                 qualitySelector.QualityLabels = videoInfo.DownloadUrls.Select(x => x.Quality).ToList();
                 qualitySelector.ShowDialog();
 
-                if(qualitySelector.DialogResult == DialogResult.OK)
+                if (qualitySelector.DialogResult == DialogResult.OK)
                 {
                     //return the video url
-                    return videoInfo.DownloadUrls.Where(x => x.Quality == qualitySelector.SelectedQuality).First().Url;
+                    return new DownloaderInput()
+                    {
+                        Url = videoInfo.DownloadUrls.Where(x => x.Quality == qualitySelector.SelectedQuality).First().Url,
+                        FileName = videoInfo.Title + ".mp4"
+                    };
                 }
             }
 
@@ -87,11 +93,15 @@ namespace Open_Video_Downloader.UserControls
             {
                 return new DailymotionExtractor();
             }
+            else if(host.Contains("vimeo.com"))
+            {
+                return new VimeoExtractor();
+            }
             else
                 return null;
         }
 
-        private async Task DownloadFile(string url, ProgressBar prgx)
+        private async Task DownloadFile(string url, ProgressBar prgx, string fileName)
         {
             IAsyncFileDownloader fileDownloader = new AsyncFileDownloader();
             fileDownloader.Progress = new Progress<DownloadProgress>((progress) =>
@@ -113,6 +123,7 @@ namespace Open_Video_Downloader.UserControls
                     lblCurrentStatus.Text = "Downloading...";
                 }
             });
+            fileDownloader.FileName = fileName;
             await fileDownloader.DownloadFileAsync(url);
             lblCurrentStatus.Text = "Completed";
             lblCurrentStatus.Left = lblCurrentStatus.Parent.Width - lblCurrentStatus.Width;

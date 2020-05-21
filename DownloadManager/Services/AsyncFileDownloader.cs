@@ -152,10 +152,10 @@ namespace DownloadManager.Servies
                     File.Delete(tempFile.Value);
                 }
                 #endregion
-
-
-                return result;
             }
+
+            File.Move(destinationFilePath, Path.GetDirectoryName(destinationFilePath) + "\\" + FileName);
+            return result;
         }
     }
 }

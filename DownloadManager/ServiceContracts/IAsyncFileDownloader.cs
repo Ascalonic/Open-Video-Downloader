@@ -9,6 +9,7 @@ namespace DownloadManager.ServiceContracts
 {
     public interface IAsyncFileDownloader
     {
+        string FileName { get; set; }
         IProgress<DownloadProgress> Progress { get; set; }
         Task<DownloadResult> DownloadFileAsync(string url);
     }

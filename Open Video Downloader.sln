@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Youtube.UrlExtractor", "You
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dailymotion.UrlExtractor", "Dailymotion.UrlExtractor\Dailymotion.UrlExtractor.csproj", "{FFF847F8-E688-483F-9D11-074224E34DB7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vimeo.UrlExtractor", "Vimeo.UrlExtractor\Vimeo.UrlExtractor.csproj", "{03D84971-70C0-41D5-AF31-A333DE4D8A6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{FFF847F8-E688-483F-9D11-074224E34DB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFF847F8-E688-483F-9D11-074224E34DB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFF847F8-E688-483F-9D11-074224E34DB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03D84971-70C0-41D5-AF31-A333DE4D8A6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03D84971-70C0-41D5-AF31-A333DE4D8A6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03D84971-70C0-41D5-AF31-A333DE4D8A6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03D84971-70C0-41D5-AF31-A333DE4D8A6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
