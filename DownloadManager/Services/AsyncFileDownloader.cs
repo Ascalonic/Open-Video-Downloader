@@ -36,7 +36,7 @@ namespace DownloadManager.Servies
             Uri uri = new Uri(url);
 
             //Calculate destination path  
-            string destinationFilePath = Path.Combine(@"C:\Users\HP\Downloads", uri.Segments.Last());
+            string destinationFilePath = Path.Combine(DownloadDirectory, uri.Segments.Last());
             DownloadResult result = new DownloadResult() { FilePath = destinationFilePath };
 
             //Handle number of parallel downloads  

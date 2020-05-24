@@ -29,5 +29,17 @@ namespace Open_Video_Downloader.UserControls
                 flowDownloadListContainer.Controls.Remove(downloader);
             }
         }
+
+        public void RemoveAllCompleted()
+        {
+            foreach(Control ctrl in flowDownloadListContainer.Controls)
+            {
+                if(ctrl is DownloadItem)
+                {
+                    if(((DownloadItem)ctrl).Status == DownloadStatus.Completed)
+                        flowDownloadListContainer.Controls.Remove(ctrl);
+                }
+            }
+        }
     }
 }

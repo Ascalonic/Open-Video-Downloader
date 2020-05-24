@@ -15,15 +15,26 @@ using Youtube.UrlExtractor;
 using Dailymotion.UrlExtractor;
 using Vimeo.UrlExtractor;
 using Open_Video_Downloader.Models;
+using System.Configuration;
 
 namespace Open_Video_Downloader.UserControls
 {
+    public enum DownloadStatus
+    {
+        Idle,
+        Downloading,
+        Completed,
+        Puased,
+        Cancelled
+    };
+
     public partial class DownloadItem : UserControl
     {
         //Each thread downloads a segment of the file. This dictionary stores the progress of each chunk
         private Dictionary<int, int> ChunkProgress = new Dictionary<int, int>();
 
         public string SourceUrl { get; set; }
+        public DownloadStatus Status { get; set; } = DownloadStatus.Idle;
 
         public DownloadItem()
         {
@@ -41,7 +52,10 @@ namespace Open_Video_Downloader.UserControls
                 pnlUrlResolution.Visible = false; ;
                 pnlDownloadStatus.Visible = true;
 
+                Status = DownloadStatus.Downloading;
                 await DownloadFile(downloaderInput.Url, prgxDownloadProgress, downloaderInput.FileName); //start download of the file
+                Status = DownloadStatus.Completed;
+
                 return true;
             }
             else
@@ -123,6 +137,11 @@ namespace Open_Video_Downloader.UserControls
                     lblCurrentStatus.Text = "Downloading...";
                 }
             });
+
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            fileDownloader.DownloadDirectory = config.AppSettings.Settings["saveDirectory"].Value;
+            fileDownloader.ParallelDownloads = Convert.ToInt32(config.AppSettings.Settings["maxThreads"].Value);
+
             fileDownloader.FileName = fileName;
             await fileDownloader.DownloadFileAsync(url);
             lblCurrentStatus.Text = "Completed";

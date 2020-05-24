@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <Fragment>
+    <DirectoryRef Id="AppProgramFolder">
+      <Component Id ="AppStartMenuShortcut" Guid="{F7685A8A-26DE-40BB-9192-0A70CFF57A67}">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+                  Name="Open Video Downloader"
+                  Description="!(loc.Description)"
+                  Target="[DESTINATIONDTR]Open Video Downloader.exe"
+                  WorkingDirectory="DESTINATIONDTR"/>
+        <RemoveFolder Id="AppProgramFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Ascalonic\Open Video Downloader" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id ="AppDesktopShortcut" Guid="{5C0C77F7-03C9-4B39-90AE-C2ED6934D0FC}">
+        <Shortcut Id="ApplicationDesktopShortcut"
+                  Name="Open Video Downloader"
+                  Description="!(loc.Description)"
+                  Target="[DESTINATIONDTR]Open Video Downloader.exe"
+                  WorkingDirectory="DESTINATIONDTR"/>
+        <RemoveFolder Id="DesktopFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Ascalonic\Open Video Downloader" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+</Wix>

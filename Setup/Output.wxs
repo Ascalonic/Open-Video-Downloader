@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="DESTINATIONDTR">
+            <Component Id="cmp8C520C44C50E53C08551C2CDE82E443D" Guid="*">
+                <File Id="fil384C5C057219DB34ACBFAF1536A16BF9" KeyPath="yes" Source="$(var.HarvestPath)\Dailymotion.UrlExtractor.dll" />
+            </Component>
+            <Component Id="cmp6DE02E2F557BC1818967CEDC23D08B18" Guid="*">
+                <File Id="fil845DB30D4439E40F6DA8EC29E62F70C6" KeyPath="yes" Source="$(var.HarvestPath)\Dailymotion.UrlExtractor.pdb" />
+            </Component>
+            <Component Id="cmp05E3DB19710964182D35A05DE26EF34F" Guid="*">
+                <File Id="filAD9B85D759A87AB49570AD3231F9A195" KeyPath="yes" Source="$(var.HarvestPath)\DownloadManager.dll" />
+            </Component>
+            <Component Id="cmp0B3ECF1FFC577A04057C1887864E5CEE" Guid="*">
+                <File Id="fil3B9F0846D15DC34212977989C66E7BD0" KeyPath="yes" Source="$(var.HarvestPath)\DownloadManager.pdb" />
+            </Component>
+            <Component Id="cmp9FDDF1246F2DFF4005EB2489D9A1EF12" Guid="*">
+                <File Id="fil0339412AC2F61B57CBAC3C96D67D7A79" KeyPath="yes" Source="$(var.HarvestPath)\How Bitcoin Works Under the Hood - YouTube.mp4" />
+            </Component>
+            <Component Id="cmpAA08E9BF2EFE573CFFF9804483549CBC" Guid="*">
+                <File Id="filCC3066E48A87124A31733D4DA24AACD4" KeyPath="yes" Source="$(var.HarvestPath)\Newtonsoft.Json.dll" />
+            </Component>
+            <Component Id="cmpFC73D3BFD73D71B053DB015950C14784" Guid="*">
+                <File Id="fil2B498A10ECB1218E3536E4A705BE134E" KeyPath="yes" Source="$(var.HarvestPath)\Open Video Downloader.exe" />
+            </Component>
+            <Component Id="cmp240E6B1E5976DB951AB9E2C52EAB389D" Guid="*">
+                <File Id="fil05CF82CBC927EA245E698C25CE154EBB" KeyPath="yes" Source="$(var.HarvestPath)\Open Video Downloader.exe.config" />
+            </Component>
+            <Component Id="cmp97F1196BE0576EA19910A9CE7304E5DE" Guid="*">
+                <File Id="filD4E196FA8013B7C833E8D765FAA05C74" KeyPath="yes" Source="$(var.HarvestPath)\Open Video Downloader.pdb" />
+            </Component>
+            <Component Id="cmpF02B3CBA7F1A1802B93261C9AB140DE8" Guid="*">
+                <File Id="fil6E29271A3861C5A65498C26EA46F7D91" KeyPath="yes" Source="$(var.HarvestPath)\Url Extractor.dll" />
+            </Component>
+            <Component Id="cmp838CD8A6A68F2489FD56789BC381C696" Guid="*">
+                <File Id="filF72A66075443AFE8CE88070E7D97312B" KeyPath="yes" Source="$(var.HarvestPath)\Url Extractor.pdb" />
+            </Component>
+            <Component Id="cmp46683677F9E3A9A2899ACCCCF7664673" Guid="*">
+                <File Id="filAD657174BB2D4B288D91B7954DDCC3E2" KeyPath="yes" Source="$(var.HarvestPath)\Vimeo.UrlExtractor.dll" />
+            </Component>
+            <Component Id="cmp374B99C34F0D6A180DB6A1F6B2F998FE" Guid="*">
+                <File Id="fil06417941041411CCDA87E45A28A23D82" KeyPath="yes" Source="$(var.HarvestPath)\Vimeo.UrlExtractor.pdb" />
+            </Component>
+            <Component Id="cmpB1C85D98C508DEC9419A3536F7E78935" Guid="*">
+                <File Id="filD682E1381F453F1C26C0503B6DC2B0C3" KeyPath="yes" Source="$(var.HarvestPath)\x5hywa__music_playlist.m3u8" />
+            </Component>
+            <Component Id="cmp3412B542EF357CCA3BC7F3F2DC2415DC" Guid="*">
+                <File Id="filFD7B5B6FF7559003FF16D3D34C84B9DF" KeyPath="yes" Source="$(var.HarvestPath)\x7u19p2_playlist.m3u8" />
+            </Component>
+            <Component Id="cmp30DA71EE49438D6E6EE60E84E9C7F618" Guid="*">
+                <File Id="filE0E5525AB537FA6EC7D4689468746EF1" KeyPath="yes" Source="$(var.HarvestPath)\Youtube.UrlExtractor.dll" />
+            </Component>
+            <Component Id="cmpA56306D475451ED66A505270AA6D3B55" Guid="*">
+                <File Id="fil8011C9238B19EA5D593140F48B3C201B" KeyPath="yes" Source="$(var.HarvestPath)\Youtube.UrlExtractor.pdb" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="HeatGenerated">
+            <ComponentRef Id="cmp8C520C44C50E53C08551C2CDE82E443D" />
+            <ComponentRef Id="cmp6DE02E2F557BC1818967CEDC23D08B18" />
+            <ComponentRef Id="cmp05E3DB19710964182D35A05DE26EF34F" />
+            <ComponentRef Id="cmp0B3ECF1FFC577A04057C1887864E5CEE" />
+            <ComponentRef Id="cmp9FDDF1246F2DFF4005EB2489D9A1EF12" />
+            <ComponentRef Id="cmpAA08E9BF2EFE573CFFF9804483549CBC" />
+            <ComponentRef Id="cmpFC73D3BFD73D71B053DB015950C14784" />
+            <ComponentRef Id="cmp240E6B1E5976DB951AB9E2C52EAB389D" />
+            <ComponentRef Id="cmp97F1196BE0576EA19910A9CE7304E5DE" />
+            <ComponentRef Id="cmpF02B3CBA7F1A1802B93261C9AB140DE8" />
+            <ComponentRef Id="cmp838CD8A6A68F2489FD56789BC381C696" />
+            <ComponentRef Id="cmp46683677F9E3A9A2899ACCCCF7664673" />
+            <ComponentRef Id="cmp374B99C34F0D6A180DB6A1F6B2F998FE" />
+            <ComponentRef Id="cmpB1C85D98C508DEC9419A3536F7E78935" />
+            <ComponentRef Id="cmp3412B542EF357CCA3BC7F3F2DC2415DC" />
+            <ComponentRef Id="cmp30DA71EE49438D6E6EE60E84E9C7F618" />
+            <ComponentRef Id="cmpA56306D475451ED66A505270AA6D3B55" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

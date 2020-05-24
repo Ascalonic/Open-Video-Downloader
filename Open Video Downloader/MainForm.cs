@@ -5,6 +5,7 @@ using Open_Video_Downloader.UserControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -30,6 +31,18 @@ namespace Open_Video_Downloader
             downloadsViewer = new DownloadsView();
             downloadsViewer.Dock = DockStyle.Fill;
             pnlMainContainer.Controls.Add(downloadsViewer);
+
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            if(string.IsNullOrEmpty(config.AppSettings.Settings["saveDirectory"].Value))
+            {
+                InitSettings(config);
+            }
+        }
+
+        private void InitSettings(Configuration config)
+        {
+            config.AppSettings.Settings["saveDirectory"].Value = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
+            config.Save();
         }
 
         private async void btnNew_Click(object sender, EventArgs e)
@@ -41,6 +54,28 @@ namespace Open_Video_Downloader
             {
                 await downloadsViewer.AddNewDownload(newDownload.VideoUrl);
             }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About aboutDialog = new About();
+            aboutDialog.ShowDialog();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            downloadsViewer.RemoveAllCompleted();
+        }
+
+        private void btnDownloadSettings_Click(object sender, EventArgs e)
+        {
+            DownloadSettings settings = new DownloadSettings();
+            settings.ShowDialog();
         }
     }
 }

@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMainContainer = new System.Windows.Forms.Panel();
+            this.btnDownloadSettings = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
@@ -56,6 +59,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.menuStrip1.Size = new System.Drawing.Size(796, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
@@ -73,12 +77,23 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // pnlMainContainer
             // 
@@ -88,6 +103,18 @@
             this.pnlMainContainer.Name = "pnlMainContainer";
             this.pnlMainContainer.Size = new System.Drawing.Size(796, 345);
             this.pnlMainContainer.TabIndex = 7;
+            // 
+            // btnDownloadSettings
+            // 
+            this.btnDownloadSettings.Image = global::Open_Video_Downloader.Properties.Resources.settings;
+            this.btnDownloadSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDownloadSettings.Location = new System.Drawing.Point(272, 29);
+            this.btnDownloadSettings.Name = "btnDownloadSettings";
+            this.btnDownloadSettings.Size = new System.Drawing.Size(143, 32);
+            this.btnDownloadSettings.TabIndex = 8;
+            this.btnDownloadSettings.Text = "         Download Settings";
+            this.btnDownloadSettings.UseVisualStyleBackColor = true;
+            this.btnDownloadSettings.Click += new System.EventHandler(this.btnDownloadSettings_Click);
             // 
             // btnClear
             // 
@@ -99,6 +126,7 @@
             this.btnClear.TabIndex = 6;
             this.btnClear.Text = "        Clear Completed";
             this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnNew
             // 
@@ -117,6 +145,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(796, 434);
+            this.Controls.Add(this.btnDownloadSettings);
             this.Controls.Add(this.pnlMainContainer);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnNew);
@@ -124,6 +153,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainForm";
@@ -146,6 +176,8 @@
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Panel pnlMainContainer;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.Button btnDownloadSettings;
     }
 }
 

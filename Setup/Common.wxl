@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+
+  <String Id="ProductName">Open Video Downloader</String>
+  <String Id="Language">1033</String>
+  <String Id="Company">Ascalonic Technologies Private Limited</String>
+  <String Id="Description">Open-Source Video Downloader for multitude of Sources</String>
+  <String Id="DowngradeMessage">A newer version of Open Video Downloader is already installed.</String>
+  <String Id="ConditionMessage">This application requires .NET Framework 4.6. Please install the .NET Framework then retry installation.</String>
+
+</WixLocalization>

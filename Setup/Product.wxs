@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <?include Config.wxi ?>
+  
+  <Product Id="$(var.OVDProductCode)"
+           Name="!(loc.ProductName)"
+           Language="!(loc.Language)"
+           Version="$(var.OVDVersion)"
+           Manufacturer="!(loc.Company)"
+           UpgradeCode="$(var.UpgradeCode)">
+
+    <Package InstallerVersion="200"
+             Compressed="yes"
+             InstallScope="perMachine"
+             Manufacturer="!(loc.Company)"
+             Description="!(loc.Description)"
+             Languages="!(loc.Language)"
+             />
+
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeMessage)" />
+    <MediaTemplate EmbedCab="yes"/>
+
+    <Icon Id="icon.ico" SourceFile="Resources\appicon.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="Icon.ico"/>
+    <!--<Property Id="ARPURLINFOABOUT" Value="www.google.co.in"/>-->
+    
+    <UIRef Id="WixUI_InstallDir"/>
+    <Property Id="WIXUI_INSTALLDIR" Value="DESTINATIONDTR"/>
+    <PropertyRef Id="NETFRAMEWORK45"/>
+
+    <Condition
+      Message="!(loc.ConditionMessage)">
+      <![CDATA[Installed OR NETFRAMEWORK45]]>
+    </Condition>
+
+    <Feature Id="ProductFeature" Title="OVDSetup" Level="1">
+      <ComponentGroupRef Id="HeatGenerated" />
+      <ComponentRef Id="AppStartMenuShortcut"/>
+      <ComponentRef Id="AppDesktopShortcut"/>
+    </Feature>
+  </Product>
+</Wix>
