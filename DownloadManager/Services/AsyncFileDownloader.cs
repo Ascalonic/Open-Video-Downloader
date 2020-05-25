@@ -163,7 +163,11 @@ namespace DownloadManager.Servies
                 #endregion
             }
 
-            File.Move(destinationFilePath, Path.GetDirectoryName(destinationFilePath) + "\\" + FileName);
+            string finalFilePath = Path.GetDirectoryName(destinationFilePath) + "\\" + FileName;
+            if (File.Exists(finalFilePath))
+                File.Delete(finalFilePath);
+
+            File.Move(destinationFilePath, finalFilePath);
             return result;
         }
     }

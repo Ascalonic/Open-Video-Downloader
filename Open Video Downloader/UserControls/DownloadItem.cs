@@ -89,7 +89,7 @@ namespace Open_Video_Downloader.UserControls
                     return new DownloaderInput()
                     {
                         Url = videoInfo.DownloadUrls.Where(x => x.Quality == qualitySelector.SelectedQuality).First().Url,
-                        FileName = videoInfo.Title + ".mp4",
+                        FileName = videoInfo.Title + qualitySelector.SelectedQuality + ".mp4",
                         CookieContainer = videoInfo.AuthCookieContainer
                     };
                 }

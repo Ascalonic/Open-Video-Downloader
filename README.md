@@ -8,6 +8,8 @@ Open-Source Video Downloader for multitude of Sources
 Open Video Downloader is an Open-Source tool to download videos from multiple sources. Currently Youtube, Dailymotion and Vimeo have been integrated into it.
 Resolved videos are downloaded with lighning speed.
 
+![Open Video Downloader](https://github.com/Ascalonic/Open-Video-Downloader/blob/master/OVD2.png)
+
 ## Features
 ### Lightning-fast download
 
