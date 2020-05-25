@@ -1,7 +1,7 @@
 
-Open Video Downloader
-:-------------------------:
-![Open Video Downloader Icon](https://github.com/Ascalonic/Open-Video-Downloader/blob/master/Open%20Video%20Downloader/Resources/icon64.png) | 
+Open Video Downloader|Current Stable
+:-------------------------|---------------:
+![Open Video Downloader Icon](https://github.com/Ascalonic/Open-Video-Downloader/blob/master/Open%20Video%20Downloader/Resources/icon64.png) | v0.1.5.18
 
 Open-Source Video Downloader for multitude of Sources
 
