@@ -142,11 +142,9 @@ namespace Open_Video_Downloader.UserControls
                 }
             });
 
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             fileDownloader.CookieContainer = cookieContainer;
-            fileDownloader.DownloadDirectory = config.AppSettings.Settings["saveDirectory"].Value;
-            fileDownloader.ParallelDownloads = Convert.ToInt32(config.AppSettings.Settings["maxThreads"].Value);
-
+            fileDownloader.DownloadDirectory = ApplicationConfiguration.DownloadConfiguration.DownloadDirectory;
+            fileDownloader.ParallelDownloads = ApplicationConfiguration.DownloadConfiguration.MaxThreads;
             fileDownloader.FileName = RemoveIllegalCharactersFromFilename(fileName);
             await fileDownloader.DownloadFileAsync(url);
             lblCurrentStatus.Text = "Completed";

@@ -38,6 +38,14 @@ namespace UrlExtractor
         }
 
         /// <summary>
+        /// Serializes model to a JSON string
+        /// </summary>
+        public static string SerializeJson<T>(T model)
+        {
+            return JsonConvert.SerializeObject(model);
+        }
+
+        /// <summary>
         /// Asynchronously makes GET request to the URL specified and returns the deserialized result (JSON)
         /// </summary>
         public async static Task<T> GetAsync<T>(string url)
@@ -58,7 +66,7 @@ namespace UrlExtractor
         }
 
         /// <summary>
-        /// Asynchronously makes GET request to the URL specified and returns the deserialized result (JSON)
+        /// Asynchronously makes GET request to the URL specified and returns the Raw response as string + cookies set
         /// </summary>
         public async static Task<RawHttpResponse> GetRawAsync(string url, CookieContainer cookieContainer = null)
         {

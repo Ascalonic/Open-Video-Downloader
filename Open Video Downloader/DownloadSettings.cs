@@ -22,12 +22,10 @@ namespace Open_Video_Downloader
 
         private void LoadSettings()
         {
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            txtDownloadDirectory.Text = ApplicationConfiguration.DownloadConfiguration.DownloadDirectory;
+            txtMaxThreads.Text = ApplicationConfiguration.DownloadConfiguration.MaxThreads.ToString();
 
-            txtDownloadDirectory.Text = config.AppSettings.Settings["saveDirectory"].Value.ToString();
-            txtMaxThreads.Text = config.AppSettings.Settings["maxThreads"].Value.ToString();
-
-            if(string.IsNullOrEmpty(txtDownloadDirectory.Text))
+            if (string.IsNullOrEmpty(txtDownloadDirectory.Text))
             {
                 txtDownloadDirectory.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
             }
@@ -57,11 +55,10 @@ namespace Open_Video_Downloader
             if (Directory.Exists(txtDownloadDirectory.Text))
             {
                 int maxthreads = Convert.ToInt16(txtMaxThreads.Value);
-                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                config.AppSettings.Settings["saveDirectory"].Value = txtDownloadDirectory.Text;
-                config.AppSettings.Settings["maxThreads"].Value = maxthreads.ToString();
+                ApplicationConfiguration.DownloadConfiguration.DownloadDirectory = txtDownloadDirectory.Text;
+                ApplicationConfiguration.DownloadConfiguration.MaxThreads = maxthreads;
+                ApplicationConfiguration.UpdateDownloadConfiguration();
 
-                config.Save();
                 DialogResult = DialogResult.OK;
             }
             else

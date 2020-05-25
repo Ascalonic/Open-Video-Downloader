@@ -32,17 +32,7 @@ namespace Open_Video_Downloader
             downloadsViewer.Dock = DockStyle.Fill;
             pnlMainContainer.Controls.Add(downloadsViewer);
 
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            if(string.IsNullOrEmpty(config.AppSettings.Settings["saveDirectory"].Value))
-            {
-                InitSettings(config);
-            }
-        }
-
-        private void InitSettings(Configuration config)
-        {
-            config.AppSettings.Settings["saveDirectory"].Value = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
-            config.Save();
+            ApplicationConfiguration.Init();
         }
 
         private async void btnNew_Click(object sender, EventArgs e)
