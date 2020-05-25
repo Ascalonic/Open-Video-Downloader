@@ -14,9 +14,6 @@
             <Component Id="cmp0B3ECF1FFC577A04057C1887864E5CEE" Guid="*">
                 <File Id="fil3B9F0846D15DC34212977989C66E7BD0" KeyPath="yes" Source="$(var.HarvestPath)\DownloadManager.pdb" />
             </Component>
-            <Component Id="cmp9FDDF1246F2DFF4005EB2489D9A1EF12" Guid="*">
-                <File Id="fil0339412AC2F61B57CBAC3C96D67D7A79" KeyPath="yes" Source="$(var.HarvestPath)\How Bitcoin Works Under the Hood - YouTube.mp4" />
-            </Component>
             <Component Id="cmpAA08E9BF2EFE573CFFF9804483549CBC" Guid="*">
                 <File Id="filCC3066E48A87124A31733D4DA24AACD4" KeyPath="yes" Source="$(var.HarvestPath)\Newtonsoft.Json.dll" />
             </Component>
@@ -41,12 +38,6 @@
             <Component Id="cmp374B99C34F0D6A180DB6A1F6B2F998FE" Guid="*">
                 <File Id="fil06417941041411CCDA87E45A28A23D82" KeyPath="yes" Source="$(var.HarvestPath)\Vimeo.UrlExtractor.pdb" />
             </Component>
-            <Component Id="cmpB1C85D98C508DEC9419A3536F7E78935" Guid="*">
-                <File Id="filD682E1381F453F1C26C0503B6DC2B0C3" KeyPath="yes" Source="$(var.HarvestPath)\x5hywa__music_playlist.m3u8" />
-            </Component>
-            <Component Id="cmp3412B542EF357CCA3BC7F3F2DC2415DC" Guid="*">
-                <File Id="filFD7B5B6FF7559003FF16D3D34C84B9DF" KeyPath="yes" Source="$(var.HarvestPath)\x7u19p2_playlist.m3u8" />
-            </Component>
             <Component Id="cmp30DA71EE49438D6E6EE60E84E9C7F618" Guid="*">
                 <File Id="filE0E5525AB537FA6EC7D4689468746EF1" KeyPath="yes" Source="$(var.HarvestPath)\Youtube.UrlExtractor.dll" />
             </Component>
@@ -61,7 +52,6 @@
             <ComponentRef Id="cmp6DE02E2F557BC1818967CEDC23D08B18" />
             <ComponentRef Id="cmp05E3DB19710964182D35A05DE26EF34F" />
             <ComponentRef Id="cmp0B3ECF1FFC577A04057C1887864E5CEE" />
-            <ComponentRef Id="cmp9FDDF1246F2DFF4005EB2489D9A1EF12" />
             <ComponentRef Id="cmpAA08E9BF2EFE573CFFF9804483549CBC" />
             <ComponentRef Id="cmpFC73D3BFD73D71B053DB015950C14784" />
             <ComponentRef Id="cmp240E6B1E5976DB951AB9E2C52EAB389D" />
@@ -70,8 +60,6 @@
             <ComponentRef Id="cmp838CD8A6A68F2489FD56789BC381C696" />
             <ComponentRef Id="cmp46683677F9E3A9A2899ACCCCF7664673" />
             <ComponentRef Id="cmp374B99C34F0D6A180DB6A1F6B2F998FE" />
-            <ComponentRef Id="cmpB1C85D98C508DEC9419A3536F7E78935" />
-            <ComponentRef Id="cmp3412B542EF357CCA3BC7F3F2DC2415DC" />
             <ComponentRef Id="cmp30DA71EE49438D6E6EE60E84E9C7F618" />
             <ComponentRef Id="cmpA56306D475451ED66A505270AA6D3B55" />
         </ComponentGroup>
