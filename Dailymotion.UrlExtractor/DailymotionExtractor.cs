@@ -30,25 +30,24 @@ namespace Dailymotion.UrlExtractor
                     Uri.EscapeDataString(sourceUrl) + "&" +
                     "referer=&app=com.dailymotion.neon&locale=en-US&client_type=website&section_type=player&component_style=_";
 
-                var model = await Utilities.GetAsync<DailymotionVideo>(metadataUrl);
+                var rawResponse = await Utilities.GetRawAsync(metadataUrl);
+                var model = Utilities.DeserializeJson<DailymotionVideo>(rawResponse.Content);
+
                 foreach(string qualityName in model.qualities.Keys)
                 {
                     //Get the url of playlist file
                     string url = model.qualities[qualityName][0].url;
                     string tempFilePath = Path.GetTempFileName();
 
-                    //Download playlist file
-                    using (var client = new WebClient())
-                    {
-                        client.DownloadFile(new Uri(url), tempFilePath);
-                    }
+                    var playlistFileResponse = await Utilities.GetRawAsync(url, rawResponse.CookieContainer);
 
                     //extract URLs from playlist file
-                    var urls = await Utilities.ParsePlaylist(tempFilePath);
+                    var urls = Utilities.ParsePlaylist(playlistFileResponse.Content);
                     return new VideoInfo()
                     {
                         Title = model.title,
-                        DownloadUrls = urls
+                        DownloadUrls = urls,
+                        AuthCookieContainer = rawResponse.CookieContainer
                     };
                 }
             }

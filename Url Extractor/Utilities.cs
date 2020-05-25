@@ -45,6 +45,9 @@ namespace UrlExtractor
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
 
+            CookieContainer jar = new CookieContainer();
+            request.CookieContainer = jar;
+
             using (HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync())
             using (Stream stream = response.GetResponseStream())
             using (StreamReader reader = new StreamReader(stream))
@@ -55,34 +58,60 @@ namespace UrlExtractor
         }
 
         /// <summary>
+        /// Asynchronously makes GET request to the URL specified and returns the deserialized result (JSON)
+        /// </summary>
+        public async static Task<RawHttpResponse> GetRawAsync(string url, CookieContainer cookieContainer = null)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+
+            //Set cookie container
+            CookieContainer jar;
+            if (cookieContainer == null)
+                jar = new CookieContainer();
+            else
+                jar = cookieContainer;
+
+            request.CookieContainer = jar;
+
+            //make request
+            using (HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync())
+            using (Stream stream = response.GetResponseStream())
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                string jsonstring = await reader.ReadToEndAsync();
+                return new RawHttpResponse()
+                {
+                    Content = jsonstring,
+                    CookieContainer = jar
+                };
+            }
+        }
+
+        /// <summary>
         /// Parses m3u8 playlist file and returns the urls
         /// </summary>
-        public static async Task<IEnumerable<DownloadUrl>> ParsePlaylist(string fileName)
+        public static IEnumerable<DownloadUrl> ParsePlaylist(string content)
         {
             List<DownloadUrl> downloadUrls = new List<DownloadUrl>();
-            using (FileStream fs = new FileStream(fileName, FileMode.Open))
-            using(StreamReader sr = new StreamReader(fs))
+            using (StringReader fileStringReader = new StringReader(content))
             {
-                string content = await sr.ReadToEndAsync();
-                using (StringReader fileStringReader = new StringReader(content))
+                string line;
+                while ((line = fileStringReader.ReadLine()) != null)
                 {
-                    string line;
-                    while ((line = fileStringReader.ReadLine()) != null)
+                    if (line.StartsWith("#EXT-X-STREAM-INF") && line.Contains("RESOLUTION=") && line.Contains("PROGRESSIVE-URI=\""))
                     {
-                        if(line.StartsWith("#EXT-X-STREAM-INF") && line.Contains("RESOLUTION=") && line.Contains("PROGRESSIVE-URI=\""))
+                        line = line.Substring(line.IndexOf("RESOLUTION=") + 11);
+                        string resolution = line.Substring(0, line.IndexOf(","));
+
+                        line = line.Substring(line.IndexOf("PROGRESSIVE-URI=\"") + 17);
+                        string videoUrl = line.Substring(0, line.IndexOf("\""));
+
+                        downloadUrls.Add(new DownloadUrl()
                         {
-                            line = line.Substring(line.IndexOf("RESOLUTION=") + 11);
-                            string resolution = line.Substring(0, line.IndexOf(","));
-
-                            line = line.Substring(line.IndexOf("PROGRESSIVE-URI=\"") + 17);
-                            string videoUrl = line.Substring(0, line.IndexOf("\""));
-
-                            downloadUrls.Add(new DownloadUrl()
-                            {
-                                Quality = resolution,
-                                Url = videoUrl
-                            });
-                        }
+                            Quality = resolution,
+                            Url = videoUrl
+                        });
                     }
                 }
             }

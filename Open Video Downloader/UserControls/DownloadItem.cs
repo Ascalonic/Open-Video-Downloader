@@ -16,6 +16,8 @@ using Dailymotion.UrlExtractor;
 using Vimeo.UrlExtractor;
 using Open_Video_Downloader.Models;
 using System.Configuration;
+using System.Net;
+using System.IO;
 
 namespace Open_Video_Downloader.UserControls
 {
@@ -53,7 +55,8 @@ namespace Open_Video_Downloader.UserControls
                 pnlDownloadStatus.Visible = true;
 
                 Status = DownloadStatus.Downloading;
-                await DownloadFile(downloaderInput.Url, prgxDownloadProgress, downloaderInput.FileName); //start download of the file
+                await DownloadFile(downloaderInput.Url, prgxDownloadProgress, downloaderInput.FileName, 
+                    downloaderInput.CookieContainer); //start download of the file
                 Status = DownloadStatus.Completed;
 
                 return true;
@@ -86,7 +89,8 @@ namespace Open_Video_Downloader.UserControls
                     return new DownloaderInput()
                     {
                         Url = videoInfo.DownloadUrls.Where(x => x.Quality == qualitySelector.SelectedQuality).First().Url,
-                        FileName = videoInfo.Title + ".mp4"
+                        FileName = videoInfo.Title + ".mp4",
+                        CookieContainer = videoInfo.AuthCookieContainer
                     };
                 }
             }
@@ -115,7 +119,7 @@ namespace Open_Video_Downloader.UserControls
                 return null;
         }
 
-        private async Task DownloadFile(string url, ProgressBar prgx, string fileName)
+        private async Task DownloadFile(string url, ProgressBar prgx, string fileName, CookieContainer cookieContainer = null)
         {
             IAsyncFileDownloader fileDownloader = new AsyncFileDownloader();
             fileDownloader.Progress = new Progress<DownloadProgress>((progress) =>
@@ -139,13 +143,25 @@ namespace Open_Video_Downloader.UserControls
             });
 
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            fileDownloader.CookieContainer = cookieContainer;
             fileDownloader.DownloadDirectory = config.AppSettings.Settings["saveDirectory"].Value;
             fileDownloader.ParallelDownloads = Convert.ToInt32(config.AppSettings.Settings["maxThreads"].Value);
 
-            fileDownloader.FileName = fileName;
+            fileDownloader.FileName = RemoveIllegalCharactersFromFilename(fileName);
             await fileDownloader.DownloadFileAsync(url);
             lblCurrentStatus.Text = "Completed";
             lblCurrentStatus.Left = lblCurrentStatus.Parent.Width - lblCurrentStatus.Width;
+        }
+
+        private string RemoveIllegalCharactersFromFilename(string fileName)
+        {
+            string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+            foreach (char c in invalid)
+            {
+                fileName = fileName.Replace(c.ToString(), "");
+            }
+
+            return fileName;
         }
 
         private void DownloadItem_Enter(object sender, EventArgs e)

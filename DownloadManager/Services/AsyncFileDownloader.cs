@@ -18,6 +18,7 @@ namespace DownloadManager.Servies
         public IProgress<DownloadProgress> Progress { get; set; }
         public string DownloadDirectory { get; set; }
         public string FileName { get; set; }
+        public CookieContainer CookieContainer { get; set; } = null;
 
         public AsyncFileDownloader()
         {
@@ -46,10 +47,14 @@ namespace DownloadManager.Servies
             }
 
             #region Get file size  
-            WebRequest webRequest = WebRequest.Create(url);
-            webRequest.Method = "HEAD";
+            HttpWebRequest headRequest = WebRequest.Create(url) as HttpWebRequest;
+            headRequest.Method = "HEAD";
+            if(CookieContainer != null)
+            {
+                headRequest.CookieContainer = CookieContainer;
+            }
             long responseLength;
-            using (WebResponse webResponse = await webRequest.GetResponseAsync())
+            using (WebResponse webResponse = await headRequest.GetResponseAsync())
             {
                 responseLength = long.Parse(webResponse.Headers.Get("Content-Length"));
                 result.Size = responseLength;
@@ -97,6 +102,10 @@ namespace DownloadManager.Servies
                     Parallel.ForEach(readRanges, new ParallelOptions() { MaxDegreeOfParallelism = ParallelDownloads }, readRange =>
                     {
                         HttpWebRequest httpWebRequest = WebRequest.Create(url) as HttpWebRequest;
+                        if(CookieContainer != null)
+                        {
+                            httpWebRequest.CookieContainer = CookieContainer;
+                        }
                         httpWebRequest.Method = "GET";
                         httpWebRequest.AddRange(readRange.Start, readRange.End);
                         using (HttpWebResponse httpWebResponse = httpWebRequest.GetResponse() as HttpWebResponse)
