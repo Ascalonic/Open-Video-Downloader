@@ -23,6 +23,8 @@
 
     <Icon Id="icon.ico" SourceFile="Resources\appicon.ico"/>
     <Property Id="ARPPRODUCTICON" Value="Icon.ico"/>
+    
+    <WixVariable Id="WixUILicenseRtf" Value="Resources/EULA.rtf" />
     <!--<Property Id="ARPURLINFOABOUT" Value="www.google.co.in"/>-->
     
     <UIRef Id="WixUI_InstallDir"/>
