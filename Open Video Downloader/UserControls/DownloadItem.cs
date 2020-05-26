@@ -154,15 +154,22 @@ namespace Open_Video_Downloader.UserControls
             fileDownloader.ParallelDownloads = ApplicationConfiguration.DownloadConfiguration.MaxThreads;
             fileDownloader.FileName = RemoveIllegalCharactersFromFilename(fileName);
             await fileDownloader.DownloadFileAsync(url);
-            lblCurrentStatus.Text = "Completed";
-            lblCurrentStatus.Left = lblCurrentStatus.Parent.Width - lblCurrentStatus.Width;
+        }
 
-            if(Status == DownloadStatus.Cancelled)
+        private void PostDownloadUI()
+        {
+            if (Status == DownloadStatus.Cancelled)
             {
                 Visible = false;
             }
+            else if (Status == DownloadStatus.Paused)
+            {
+                //do nothing   
+            }
             else
             {
+                lblCurrentStatus.Text = "Completed";
+                lblCurrentStatus.Left = lblCurrentStatus.Parent.Width - lblCurrentStatus.Width;
                 pnlDownloadStatus.Visible = false;
                 pnlPostDownload.Visible = true;
             }
@@ -239,6 +246,31 @@ namespace Open_Video_Downloader.UserControls
                     Status = DownloadStatus.Cancelled;
                     cancellationSource.Cancel();
                 }
+            }
+        }
+
+        private async void btnPauseDownload_Click(object sender, EventArgs e)
+        {
+            if(Status == DownloadStatus.Downloading)
+            {
+                if (!cancellationSource.IsCancellationRequested)
+                {
+                    fileDownloader.IsPaused = true;
+                    cancellationSource.Cancel();
+                    btnPauseDownload.Image = Properties.Resources.play;
+                    Status = DownloadStatus.Paused;
+                }
+            }
+            else
+            {
+                cancellationSource = new CancellationTokenSource();
+                fileDownloader.CancellationToken = cancellationSource.Token;
+                fileDownloader.IsPaused = false;
+                Status = DownloadStatus.Downloading;
+                btnPauseDownload.Image = Properties.Resources.pause;
+                await fileDownloader.ResumeDownload();
+                Status = DownloadStatus.Completed;
+                PostDownloadUI();
             }
         }
     }

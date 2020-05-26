@@ -16,8 +16,10 @@ namespace DownloadManager.ServiceContracts
         string DownloadDirectory { get; set; }
         CookieContainer CookieContainer { get; set; }
         CancellationToken CancellationToken { get; set; }
+        bool IsPaused { get; set; }
 
         IProgress<DownloadProgress> Progress { get; set; }
         Task<DownloadResult> DownloadFileAsync(string url);
+        Task<DownloadResult> ResumeDownload();
     }
 }

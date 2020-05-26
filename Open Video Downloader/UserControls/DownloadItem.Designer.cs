@@ -39,6 +39,7 @@
             this.btnViewInFolder = new System.Windows.Forms.Button();
             this.btnPlay = new System.Windows.Forms.Button();
             this.picSpinner = new System.Windows.Forms.PictureBox();
+            this.btnPauseDownload = new System.Windows.Forms.Button();
             this.btnCancelDownload = new System.Windows.Forms.Button();
             this.pnlDownloadStatus.SuspendLayout();
             this.pnlUrlResolution.SuspendLayout();
@@ -60,6 +61,7 @@
             // pnlDownloadStatus
             // 
             this.pnlDownloadStatus.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.pnlDownloadStatus.Controls.Add(this.btnPauseDownload);
             this.pnlDownloadStatus.Controls.Add(this.btnCancelDownload);
             this.pnlDownloadStatus.Controls.Add(this.lblCurrentStatus);
             this.pnlDownloadStatus.Controls.Add(this.lblProgressPercentage);
@@ -160,6 +162,16 @@
             this.picSpinner.TabIndex = 0;
             this.picSpinner.TabStop = false;
             // 
+            // btnPauseDownload
+            // 
+            this.btnPauseDownload.Image = global::Open_Video_Downloader.Properties.Resources.pause;
+            this.btnPauseDownload.Location = new System.Drawing.Point(19, 2);
+            this.btnPauseDownload.Name = "btnPauseDownload";
+            this.btnPauseDownload.Size = new System.Drawing.Size(30, 29);
+            this.btnPauseDownload.TabIndex = 4;
+            this.btnPauseDownload.UseVisualStyleBackColor = true;
+            this.btnPauseDownload.Click += new System.EventHandler(this.btnPauseDownload_Click);
+            // 
             // btnCancelDownload
             // 
             this.btnCancelDownload.Image = global::Open_Video_Downloader.Properties.Resources._interface;
@@ -210,5 +222,6 @@
         private System.Windows.Forms.Button btnViewInFolder;
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.Button btnCancelDownload;
+        private System.Windows.Forms.Button btnPauseDownload;
     }
 }

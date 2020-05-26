@@ -44,6 +44,7 @@
     <Compile Include="Models\DownloadProgress.cs" />
     <Compile Include="Models\DownloadResult.cs" />
     <Compile Include="Models\Range.cs" />
+    <Compile Include="Models\WebRequestHistory.cs" />
     <Compile Include="Services\AsyncFileDownloader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceContracts\IAsyncFileDownloader.cs" />

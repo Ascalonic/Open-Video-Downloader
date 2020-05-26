@@ -189,6 +189,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="appicon.ico" />
+    <None Include="Resources\play.png" />
+    <None Include="Resources\pause.png" />
     <None Include="Resources\movie.png" />
     <None Include="Resources\open-folder %281%29.png" />
     <None Include="Resources\movie %281%29.png" />
