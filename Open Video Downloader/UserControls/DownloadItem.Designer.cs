@@ -39,6 +39,7 @@
             this.btnViewInFolder = new System.Windows.Forms.Button();
             this.btnPlay = new System.Windows.Forms.Button();
             this.picSpinner = new System.Windows.Forms.PictureBox();
+            this.btnCancelDownload = new System.Windows.Forms.Button();
             this.pnlDownloadStatus.SuspendLayout();
             this.pnlUrlResolution.SuspendLayout();
             this.pnlPostDownload.SuspendLayout();
@@ -59,19 +60,20 @@
             // pnlDownloadStatus
             // 
             this.pnlDownloadStatus.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.pnlDownloadStatus.Controls.Add(this.btnCancelDownload);
             this.pnlDownloadStatus.Controls.Add(this.lblCurrentStatus);
             this.pnlDownloadStatus.Controls.Add(this.lblProgressPercentage);
             this.pnlDownloadStatus.Controls.Add(this.prgxDownloadProgress);
             this.pnlDownloadStatus.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlDownloadStatus.Location = new System.Drawing.Point(501, 0);
+            this.pnlDownloadStatus.Location = new System.Drawing.Point(511, 0);
             this.pnlDownloadStatus.Name = "pnlDownloadStatus";
-            this.pnlDownloadStatus.Size = new System.Drawing.Size(160, 34);
+            this.pnlDownloadStatus.Size = new System.Drawing.Size(242, 34);
             this.pnlDownloadStatus.TabIndex = 1;
             // 
             // lblCurrentStatus
             // 
             this.lblCurrentStatus.AutoSize = true;
-            this.lblCurrentStatus.Location = new System.Drawing.Point(73, 16);
+            this.lblCurrentStatus.Location = new System.Drawing.Point(153, 16);
             this.lblCurrentStatus.Name = "lblCurrentStatus";
             this.lblCurrentStatus.Size = new System.Drawing.Size(87, 15);
             this.lblCurrentStatus.TabIndex = 2;
@@ -80,7 +82,7 @@
             // lblProgressPercentage
             // 
             this.lblProgressPercentage.AutoSize = true;
-            this.lblProgressPercentage.Location = new System.Drawing.Point(3, 16);
+            this.lblProgressPercentage.Location = new System.Drawing.Point(83, 16);
             this.lblProgressPercentage.Name = "lblProgressPercentage";
             this.lblProgressPercentage.Size = new System.Drawing.Size(23, 15);
             this.lblProgressPercentage.TabIndex = 1;
@@ -88,7 +90,7 @@
             // 
             // prgxDownloadProgress
             // 
-            this.prgxDownloadProgress.Location = new System.Drawing.Point(3, 3);
+            this.prgxDownloadProgress.Location = new System.Drawing.Point(83, 3);
             this.prgxDownloadProgress.Name = "prgxDownloadProgress";
             this.prgxDownloadProgress.Size = new System.Drawing.Size(154, 12);
             this.prgxDownloadProgress.TabIndex = 0;
@@ -99,7 +101,7 @@
             this.pnlUrlResolution.Controls.Add(this.lblResolvingUrl);
             this.pnlUrlResolution.Controls.Add(this.picSpinner);
             this.pnlUrlResolution.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlUrlResolution.Location = new System.Drawing.Point(341, 0);
+            this.pnlUrlResolution.Location = new System.Drawing.Point(351, 0);
             this.pnlUrlResolution.Name = "pnlUrlResolution";
             this.pnlUrlResolution.Size = new System.Drawing.Size(160, 34);
             this.pnlUrlResolution.TabIndex = 2;
@@ -119,7 +121,7 @@
             this.pnlPostDownload.Controls.Add(this.btnViewInFolder);
             this.pnlPostDownload.Controls.Add(this.btnPlay);
             this.pnlPostDownload.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlPostDownload.Location = new System.Drawing.Point(150, 0);
+            this.pnlPostDownload.Location = new System.Drawing.Point(160, 0);
             this.pnlPostDownload.Name = "pnlPostDownload";
             this.pnlPostDownload.Size = new System.Drawing.Size(191, 34);
             this.pnlPostDownload.TabIndex = 3;
@@ -158,6 +160,16 @@
             this.picSpinner.TabIndex = 0;
             this.picSpinner.TabStop = false;
             // 
+            // btnCancelDownload
+            // 
+            this.btnCancelDownload.Image = global::Open_Video_Downloader.Properties.Resources._interface;
+            this.btnCancelDownload.Location = new System.Drawing.Point(50, 2);
+            this.btnCancelDownload.Name = "btnCancelDownload";
+            this.btnCancelDownload.Size = new System.Drawing.Size(30, 29);
+            this.btnCancelDownload.TabIndex = 3;
+            this.btnCancelDownload.UseVisualStyleBackColor = true;
+            this.btnCancelDownload.Click += new System.EventHandler(this.btnCancelDownload_Click);
+            // 
             // DownloadItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -169,7 +181,7 @@
             this.Controls.Add(this.lblSourceUrl);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "DownloadItem";
-            this.Size = new System.Drawing.Size(661, 34);
+            this.Size = new System.Drawing.Size(753, 34);
             this.Load += new System.EventHandler(this.DownloadItem_Load);
             this.Enter += new System.EventHandler(this.DownloadItem_Enter);
             this.Leave += new System.EventHandler(this.DownloadItem_Leave);
@@ -197,5 +209,6 @@
         private System.Windows.Forms.Panel pnlPostDownload;
         private System.Windows.Forms.Button btnViewInFolder;
         private System.Windows.Forms.Button btnPlay;
+        private System.Windows.Forms.Button btnCancelDownload;
     }
 }

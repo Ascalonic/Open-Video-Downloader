@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DownloadManager.Servies
@@ -19,6 +20,7 @@ namespace DownloadManager.Servies
         public string DownloadDirectory { get; set; }
         public string FileName { get; set; }
         public CookieContainer CookieContainer { get; set; } = null;
+        public CancellationToken CancellationToken { get; set; }
 
         public AsyncFileDownloader()
         {
@@ -101,6 +103,11 @@ namespace DownloadManager.Servies
                     int index = 0;
                     Parallel.ForEach(readRanges, new ParallelOptions() { MaxDegreeOfParallelism = ParallelDownloads }, readRange =>
                     {
+                        if(CancellationToken.IsCancellationRequested)
+                        {
+                            Console.WriteLine("Cancel 1");
+                        }
+
                         HttpWebRequest httpWebRequest = WebRequest.Create(url) as HttpWebRequest;
                         if(CookieContainer != null)
                         {
@@ -110,6 +117,11 @@ namespace DownloadManager.Servies
                         httpWebRequest.AddRange(readRange.Start, readRange.End);
                         using (HttpWebResponse httpWebResponse = httpWebRequest.GetResponse() as HttpWebResponse)
                         {
+                            if (CancellationToken.IsCancellationRequested)
+                            {
+                                Console.WriteLine("Cancel 2");
+                            }
+
                             string tempFilePath = Path.GetTempFileName();
                             using (var fileStream = new FileStream(tempFilePath, FileMode.Create, FileAccess.Write, FileShare.Write))
                             {
@@ -120,6 +132,11 @@ namespace DownloadManager.Servies
                                         var buffer = new byte[256];
                                         while (fileStream.Length < httpWebResponse.ContentLength)
                                         {
+                                            if (CancellationToken.IsCancellationRequested)
+                                            {
+                                                break;
+                                            }
+
                                             var read = stream.Read(buffer, 0, buffer.Length);
                                             if (read > 0)
                                             {
@@ -147,7 +164,7 @@ namespace DownloadManager.Servies
                     });
 
                     result.ParallelDownloads = index;
-                });
+                }, CancellationToken);
 
                 #endregion
 

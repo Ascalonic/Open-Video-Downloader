@@ -18,6 +18,7 @@ using Open_Video_Downloader.Models;
 using System.Configuration;
 using System.Net;
 using System.IO;
+using System.Threading;
 
 namespace Open_Video_Downloader.UserControls
 {
@@ -26,7 +27,7 @@ namespace Open_Video_Downloader.UserControls
         Idle,
         Downloading,
         Completed,
-        Puased,
+        Paused,
         Cancelled
     };
 
@@ -38,6 +39,7 @@ namespace Open_Video_Downloader.UserControls
         public string SourceUrl { get; set; }
         public DownloadStatus Status { get; set; } = DownloadStatus.Idle;
         private IAsyncFileDownloader fileDownloader;
+        private CancellationTokenSource cancellationSource;
 
         public DownloadItem()
         {
@@ -58,7 +60,9 @@ namespace Open_Video_Downloader.UserControls
                 Status = DownloadStatus.Downloading;
                 await DownloadFile(downloaderInput.Url, prgxDownloadProgress, downloaderInput.FileName, 
                     downloaderInput.CookieContainer); //start download of the file
-                Status = DownloadStatus.Completed;
+
+                if(Status == DownloadStatus.Downloading)
+                    Status = DownloadStatus.Completed;
 
                 return true;
             }
@@ -143,6 +147,8 @@ namespace Open_Video_Downloader.UserControls
                 }
             });
 
+            cancellationSource = new CancellationTokenSource();
+            fileDownloader.CancellationToken = cancellationSource.Token;
             fileDownloader.CookieContainer = cookieContainer;
             fileDownloader.DownloadDirectory = ApplicationConfiguration.DownloadConfiguration.DownloadDirectory;
             fileDownloader.ParallelDownloads = ApplicationConfiguration.DownloadConfiguration.MaxThreads;
@@ -150,8 +156,16 @@ namespace Open_Video_Downloader.UserControls
             await fileDownloader.DownloadFileAsync(url);
             lblCurrentStatus.Text = "Completed";
             lblCurrentStatus.Left = lblCurrentStatus.Parent.Width - lblCurrentStatus.Width;
-            pnlDownloadStatus.Visible = false;
-            pnlPostDownload.Visible = true;
+
+            if(Status == DownloadStatus.Cancelled)
+            {
+                Visible = false;
+            }
+            else
+            {
+                pnlDownloadStatus.Visible = false;
+                pnlPostDownload.Visible = true;
+            }
         }
 
         private string RemoveIllegalCharactersFromFilename(string fileName)
@@ -212,6 +226,20 @@ namespace Open_Video_Downloader.UserControls
         private void btnPlay_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(Path.Combine(fileDownloader.DownloadDirectory, fileDownloader.FileName));
+        }
+
+        private void btnCancelDownload_Click(object sender, EventArgs e)
+        {
+            if(!cancellationSource.IsCancellationRequested)
+            {
+                var res = MessageBox.Show("Are you sure you want to cancel downloading the video", 
+                    "Cancel Download?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if(res == DialogResult.Yes)
+                {
+                    Status = DownloadStatus.Cancelled;
+                    cancellationSource.Cancel();
+                }
+            }
         }
     }
 }
