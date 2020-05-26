@@ -189,6 +189,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="appicon.ico" />
+    <None Include="Resources\movie.png" />
+    <None Include="Resources\open-folder %281%29.png" />
+    <None Include="Resources\movie %281%29.png" />
+    <None Include="Resources\open-folder.png" />
     <None Include="Resources\settings.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

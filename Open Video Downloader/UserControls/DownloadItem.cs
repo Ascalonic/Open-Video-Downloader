@@ -37,6 +37,7 @@ namespace Open_Video_Downloader.UserControls
 
         public string SourceUrl { get; set; }
         public DownloadStatus Status { get; set; } = DownloadStatus.Idle;
+        private IAsyncFileDownloader fileDownloader;
 
         public DownloadItem()
         {
@@ -121,7 +122,7 @@ namespace Open_Video_Downloader.UserControls
 
         private async Task DownloadFile(string url, ProgressBar prgx, string fileName, CookieContainer cookieContainer = null)
         {
-            IAsyncFileDownloader fileDownloader = new AsyncFileDownloader();
+            fileDownloader = new AsyncFileDownloader();
             fileDownloader.Progress = new Progress<DownloadProgress>((progress) =>
             {
                 if (ChunkProgress.ContainsKey(progress.ChunkIndex))
@@ -149,6 +150,8 @@ namespace Open_Video_Downloader.UserControls
             await fileDownloader.DownloadFileAsync(url);
             lblCurrentStatus.Text = "Completed";
             lblCurrentStatus.Left = lblCurrentStatus.Parent.Width - lblCurrentStatus.Width;
+            pnlDownloadStatus.Visible = false;
+            pnlPostDownload.Visible = true;
         }
 
         private string RemoveIllegalCharactersFromFilename(string fileName)
@@ -178,11 +181,37 @@ namespace Open_Video_Downloader.UserControls
         {
             lblSourceUrl.Text = SourceUrl;
             pnlUrlResolution.Visible = false;
+            pnlPostDownload.Visible = false;
         }
 
         private void lblSourceUrl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(SourceUrl);
+        }
+
+        private void OpenDirectoryWithFileSelected(string directory, string filename)
+        {
+            string filePath = Path.Combine(directory, filename);
+            if (!File.Exists(filePath))
+            {
+                return;
+            }
+
+            // combine the arguments together
+            // it doesn't matter if there is a space after ','
+            string argument = "/select, \"" + filePath + "\"";
+
+            System.Diagnostics.Process.Start("explorer.exe", argument);
+        }
+
+        private void btnViewInFolder_Click(object sender, EventArgs e)
+        {
+            OpenDirectoryWithFileSelected(fileDownloader.DownloadDirectory, fileDownloader.FileName);
+        }
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Path.Combine(fileDownloader.DownloadDirectory, fileDownloader.FileName));
         }
     }
 }

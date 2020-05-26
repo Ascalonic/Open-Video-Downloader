@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -66,6 +67,11 @@ namespace Open_Video_Downloader
         {
             DownloadSettings settings = new DownloadSettings();
             settings.ShowDialog();
+        }
+
+        private void openDownloadDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(ApplicationConfiguration.DownloadConfiguration.DownloadDirectory);
         }
     }
 }

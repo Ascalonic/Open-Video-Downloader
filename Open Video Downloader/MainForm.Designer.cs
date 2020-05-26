@@ -36,9 +36,11 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMainContainer = new System.Windows.Forms.Panel();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDownloadSettings = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
+            this.openDownloadDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,6 +69,8 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openDownloadDirectoryToolStripMenuItem,
+            this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -75,7 +79,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -91,7 +95,7 @@
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -103,6 +107,11 @@
             this.pnlMainContainer.Name = "pnlMainContainer";
             this.pnlMainContainer.Size = new System.Drawing.Size(796, 345);
             this.pnlMainContainer.TabIndex = 7;
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(208, 6);
             // 
             // btnDownloadSettings
             // 
@@ -139,6 +148,14 @@
             this.btnNew.Text = "         New Download";
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            // 
+            // openDownloadDirectoryToolStripMenuItem
+            // 
+            this.openDownloadDirectoryToolStripMenuItem.Image = global::Open_Video_Downloader.Properties.Resources.open_folder;
+            this.openDownloadDirectoryToolStripMenuItem.Name = "openDownloadDirectoryToolStripMenuItem";
+            this.openDownloadDirectoryToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.openDownloadDirectoryToolStripMenuItem.Text = "Open Download Directory";
+            this.openDownloadDirectoryToolStripMenuItem.Click += new System.EventHandler(this.openDownloadDirectoryToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -178,6 +195,8 @@
         private System.Windows.Forms.Panel pnlMainContainer;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Button btnDownloadSettings;
+        private System.Windows.Forms.ToolStripMenuItem openDownloadDirectoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 
