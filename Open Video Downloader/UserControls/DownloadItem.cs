@@ -154,6 +154,7 @@ namespace Open_Video_Downloader.UserControls
             fileDownloader.ParallelDownloads = ApplicationConfiguration.DownloadConfiguration.MaxThreads;
             fileDownloader.FileName = RemoveIllegalCharactersFromFilename(fileName);
             await fileDownloader.DownloadFileAsync(url);
+            PostDownloadUI();
         }
 
         private void PostDownloadUI()
